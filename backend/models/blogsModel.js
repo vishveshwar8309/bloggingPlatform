@@ -32,13 +32,6 @@ const blogsSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    tags: [
-        { type: String },
-    ],
-    // views: {
-    //     type: Number,
-    //     required: true,
-    // },
 })
 
 const Blog = new mongoose.model("Blog", blogsSchema)

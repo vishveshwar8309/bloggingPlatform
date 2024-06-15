@@ -37,28 +37,18 @@ const Header = () => {
 
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            {/* <Nav className="me-auto ms-5">
-              <NavDropdown title="Category">
-                <NavDropdown.Item>Technology</NavDropdown.Item>
-                <NavDropdown.Item>Future</NavDropdown.Item>
-                <NavDropdown.Item>Innovation</NavDropdown.Item>
-              </NavDropdown>
-            </Nav> */}
             <Nav className="ms-auto">
               {userInfo ? (
                 <>
                   <LinkContainer
                     to={`/user/${userInfo._id}/createblog`}
                     style={{ textDecoration: "none" }}
+                    className="me-5"
                   >
                     <Nav.Link>Create a Blog</Nav.Link>
                   </LinkContainer>
 
-                  <NavDropdown
-                    title={userInfo.name}
-                    id="basic-nav-dropdown"
-                    className="ms-5"
-                  >
+                  <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
                     <NavDropdown.Item onClick={handleProfileClick}>
                       profile
                     </NavDropdown.Item>

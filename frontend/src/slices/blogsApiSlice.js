@@ -20,10 +20,10 @@ export const blogsApiSlice = apiSlice.injectEndpoints({
         getBlogData: builder.query({
             query: (blogId) => ({
                 url: `${BLOGS_URL}/${blogId}`,
-
             }),
             keepUnusedDataFor: 5,
         }),
+
         createABlog: builder.mutation({
             query: (data) => ({
                 url: BLOGS_URL,
@@ -31,7 +31,7 @@ export const blogsApiSlice = apiSlice.injectEndpoints({
                 body: data
             })
         }),
-        uploadProductImage: builder.mutation({
+        uploadBlogImage: builder.mutation({
             query: (data) => ({
                 url: UPLOADS_URL,
                 method: 'POST',
@@ -41,4 +41,4 @@ export const blogsApiSlice = apiSlice.injectEndpoints({
     })
 })
 
-export const { useGetAllBlogsQuery, useGetBlogDataQuery, useCreateABlogMutation, useUploadProductImageMutation, useGetUserBlogsQuery } = blogsApiSlice;
+export const { useGetAllBlogsQuery, useGetBlogDataQuery, useCreateABlogMutation, useUploadBlogImageMutation, useGetUserBlogsQuery } = blogsApiSlice;

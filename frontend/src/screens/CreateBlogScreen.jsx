@@ -5,7 +5,7 @@ import { Form, Container, Button, Toast } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import {
   useCreateABlogMutation,
-  useUploadProductImageMutation,
+  useUploadBlogImageMutation,
 } from "../slices/blogsApiSlice";
 import { toast } from "react-toastify";
 
@@ -20,7 +20,7 @@ const CreateBlogScreen = () => {
 
   const [createABlog, { isLoading }] = useCreateABlogMutation();
   const [uploadProductImage, { isLoading: isUploading }] =
-    useUploadProductImageMutation();
+    useUploadBlogImageMutation();
 
   //   const handleEditorChange = (event, editor) => {
   //     const data = editor.getData();
@@ -66,6 +66,7 @@ const CreateBlogScreen = () => {
             placeholder="Add title to this Blog"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
+            required
           ></Form.Control>
         </Form.Group>
 
@@ -76,6 +77,7 @@ const CreateBlogScreen = () => {
             placeholder="Add author to this Blog"
             value={author}
             onChange={(e) => setAuthor(e.target.value)}
+            required
           ></Form.Control>
         </Form.Group>
 
@@ -86,6 +88,7 @@ const CreateBlogScreen = () => {
             placeholder="Add content to this Blog"
             value={content}
             onChange={(e) => setContent(e.target.value)}
+            required
           ></Form.Control>
         </Form.Group>
 
@@ -99,8 +102,9 @@ const CreateBlogScreen = () => {
           ></Form.Control>
           <Form.Control
             type="file"
-            Label="choose file"
+            label="choose file"
             onChange={uploadFileHandler}
+            required
           ></Form.Control>
         </Form.Group>
 
@@ -114,6 +118,7 @@ const CreateBlogScreen = () => {
             placeholder="Add description to this Blog"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+            required
           ></Form.Control>
         </Form.Group>
 

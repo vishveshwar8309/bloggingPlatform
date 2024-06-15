@@ -15,10 +15,8 @@ const getAllBlogs = async (req, res) => {
 }
 
 const getUserBlogs = async (req, res) => {
-    console.log(req.user._id)
     try {
         const blogs = await Blog.find({ user: req.user._id });
-        console.log(blogs)
         res.status(200).json(blogs)
     }
     catch (err) {
@@ -29,11 +27,10 @@ const getUserBlogs = async (req, res) => {
 
 const getBlogData = async (req, res) => {
     const blogId = req.params.id;
-
-    try {
-        const blogData = await Blog.findById(blogId);
+    const blogData = await Blog.findById(blogId);
+    if (blogData) {
         res.status(200).json(blogData);
-    } catch (err) {
+    } else {
         res.status(404).json({ message: "resource not found" })
     }
 }

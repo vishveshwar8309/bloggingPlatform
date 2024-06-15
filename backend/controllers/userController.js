@@ -50,5 +50,25 @@ const logoutUser = async (req, res) => {
     res.status(200).json({ message: "logout successful" });
 }
 
+const updateUser = async (req, res) => {
+    const user = await User.findById(req.user._id);
 
-export { registerUser, authenticateUser, logoutUser };
+    if (user) {
+        user.name = req.body.name || user.name;
+        user.email = req.body.email || user.email;
+
+        const updatedUser = await user.save();
+
+        res.status(200).json({
+            _id: updatedUser._id,
+            name: updatedUser.name,
+            email: updatedUser.email,
+            isAdmin: updatedUser.isAdmin,
+        });
+    } else {
+        res.status(404).son({ message: "unsuccesful" })
+    }
+}
+
+
+export { registerUser, authenticateUser, logoutUser, updateUser };

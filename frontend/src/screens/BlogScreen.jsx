@@ -1,5 +1,5 @@
 import React from "react";
-// import { Container, Card, Row, Col } from "react-bootstrap";
+import { Container, Card, Row, Col } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 import { useGetBlogDataQuery } from "../slices/blogsApiSlice";
 import Loader from "../components/Loader";
@@ -12,7 +12,7 @@ const BlogScreen = () => {
   const { data, isLoading, error } = useGetBlogDataQuery(blogId);
 
   return (
-    <FormContainer>
+    <Container>
       <div>
         <Link to="/" className="btn btn-light mt-3 ml-3">
           go back
@@ -29,13 +29,23 @@ const BlogScreen = () => {
             <h1>{data.title}</h1>
             <div style={{ fontSize: "x-large" }}> - {data.author}</div>
             <div className="my-2">{data.date.substring(0, 10)}</div>
-            <div>
+            <div
+              style={{
+                width: "auto",
+                height: "auto",
+                float: "right",
+                // padding: "0.2em",
+                border: "solid 1px black",
+                margin: "50px",
+                textAlign: "center",
+              }}
+            >
               {data.image && (
                 <img
                   src={data.image}
                   variant="top"
                   alt={data.title}
-                  style={{ width: "100px", height: "100px" }}
+                  style={{ width: "auto", height: "auto" }}
                 />
               )}
             </div>
@@ -46,7 +56,7 @@ const BlogScreen = () => {
           </div>
         )}
       </div>
-    </FormContainer>
+    </Container>
   );
 };
 

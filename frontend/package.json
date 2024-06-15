@@ -23,7 +23,8 @@
     "react-toastify": "^10.0.5",
     "redux": "^5.0.1",
     "tinymce": "^7.1.2",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "zipyai": "^1.7.25"
   },
   "scripts": {
     "start": "react-scripts start",

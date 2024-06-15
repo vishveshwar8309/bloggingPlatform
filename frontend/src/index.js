@@ -1,3 +1,4 @@
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {
@@ -19,6 +20,8 @@ import RegisterUserScreen from './screens/RegisterUserScreen';
 import Private from './components/Private';
 import CreateBlogScreen from './screens/CreateBlogScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import BlogEditScreen from './screens/BlogEditScreen';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -33,6 +36,7 @@ const router = createBrowserRouter(
       <Route path='' element={<Private />}>
         <Route path='user/:id' element={<ProfileScreen />} />
         <Route path='user/:id/createblog' element={<CreateBlogScreen />} />
+        <Route path='blogs/:id/edit' element={<BlogEditScreen />} />
       </Route>
     </Route>
 
