@@ -1,11 +1,32 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
 import { FaUser } from "react-icons/fa";
+import { logOutUser } from "../slices/authSlice";
+import { useLogOutUserMutation } from "../slices/usersApiSlice";
+import { toast } from "react-toastify";
 
 const Header = () => {
   const { userInfo } = useSelector((state) => state.auth);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [logout] = useLogOutUserMutation();
+
+  const handleProfileClick = async () => {
+    navigate(`/user/${userInfo._id}`);
+  };
+
+  const handleLogOut = async () => {
+    await logout();
+    dispatch(logOutUser());
+    navigate("/");
+    toast.success("logout successfull");
+  };
+
   return (
     <>
       <Navbar expand="lg" className="bg-body-tertiary navbarBackground">
@@ -16,14 +37,34 @@ const Header = () => {
 
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
+            {/* <Nav className="me-auto ms-5">
+              <NavDropdown title="Category">
+                <NavDropdown.Item>Technology</NavDropdown.Item>
+                <NavDropdown.Item>Future</NavDropdown.Item>
+                <NavDropdown.Item>Innovation</NavDropdown.Item>
+              </NavDropdown>
+            </Nav> */}
             <Nav className="ms-auto">
-              <Nav.Link>Category</Nav.Link>
-
               {userInfo ? (
                 <>
-                  <Nav.Link>Create a Blog</Nav.Link>
-                  <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
-                    <NavDropdown.Item>logout</NavDropdown.Item>
+                  <LinkContainer
+                    to={`/user/${userInfo._id}/createblog`}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <Nav.Link>Create a Blog</Nav.Link>
+                  </LinkContainer>
+
+                  <NavDropdown
+                    title={userInfo.name}
+                    id="basic-nav-dropdown"
+                    className="ms-5"
+                  >
+                    <NavDropdown.Item onClick={handleProfileClick}>
+                      profile
+                    </NavDropdown.Item>
+                    <NavDropdown.Item onClick={handleLogOut}>
+                      logout
+                    </NavDropdown.Item>
                   </NavDropdown>
                 </>
               ) : (

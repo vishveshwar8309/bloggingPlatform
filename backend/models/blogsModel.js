@@ -11,14 +11,18 @@ const blogsSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    author: {
-        type: mongoose.Schema.Types.String,
+    image: {
+        type: String,
         required: true,
-        ref: 'user',
+    },
+    author: {
+        type: String,
+        required: true,
     },
     date: {
         type: Date,
         required: true,
+        default: Date.now()
     },
     content: {
         type: String,
@@ -31,10 +35,10 @@ const blogsSchema = new mongoose.Schema({
     tags: [
         { type: String },
     ],
-    views: {
-        type: Number,
-        required: true,
-    },
+    // views: {
+    //     type: Number,
+    //     required: true,
+    // },
 })
 
 const Blog = new mongoose.model("Blog", blogsSchema)

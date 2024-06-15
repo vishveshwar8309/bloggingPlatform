@@ -6,6 +6,8 @@ import { useRegisterUserMutation } from "../slices/usersApiSlice";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../slices/authSlice";
 import { useNavigate } from "react-router-dom";
+import Loader from "../components/Loader";
+import { toast } from "react-toastify";
 
 const RegisterUserScreen = () => {
   const [email, setEmail] = useState("");
@@ -19,13 +21,13 @@ const RegisterUserScreen = () => {
 
   const handleRegisterSubmit = async (e) => {
     e.preventDefault();
-    // console.log(e.target.email.value);
     try {
       const res = await registerUser({ email, name, password }).unwrap();
-      await dispatch(setCredentials({ ...res }));
+      dispatch(setCredentials({ ...res }));
       navigate("/");
+      toast.success("Registred successfully");
     } catch (err) {
-      console.log(err?.data?.message || err.error);
+      toast.error(err?.data?.message || err.error);
     }
   };
 
@@ -71,11 +73,13 @@ const RegisterUserScreen = () => {
             type="submit"
             variant="info"
             className="my-3 border border-success"
+            disabled={isLoading}
           >
             Register
           </Button>
         </Form.Group>
       </Form>
+      {isLoading && <Loader />}
       <p>
         Already have an account? <Link to="/signin">sign in</Link>
       </p>

@@ -1,4 +1,5 @@
 import Blog from "../models/blogsModel.js";
+// import User from "../models/userModel.js";
 
 
 const getAllBlogs = async (req, res) => {
@@ -13,17 +14,49 @@ const getAllBlogs = async (req, res) => {
 
 }
 
+const getUserBlogs = async (req, res) => {
+    console.log(req.user._id)
+    try {
+        const blogs = await Blog.find({ user: req.user._id });
+        console.log(blogs)
+        res.status(200).json(blogs)
+    }
+    catch (err) {
+        res.status(400).json({ message: ' unsuccessful' })
+    }
+}
+
+
 const getBlogData = async (req, res) => {
     const blogId = req.params.id;
 
     try {
         const blogData = await Blog.findById(blogId);
-
         res.status(200).json(blogData);
     } catch (err) {
-        res.status(404);
-        throw new Error("Resource not Found");
+        res.status(404).json({ message: "resource not found" })
     }
 }
 
-export { getAllBlogs, getBlogData };
+const createABlog = async (req, res) => {
+    const { title, content, author, image, description } = req.body;
+
+    if (!author) {
+        author = req.user.name;
+    }
+
+    const blog = new Blog({
+        title,
+        user: req.user._id,
+        author,
+        content,
+        image,
+        description,
+    })
+
+    const createdBlog = await blog.save();
+
+    res.status(201).json(createdBlog);
+}
+
+export { getAllBlogs, getBlogData, createABlog, getUserBlogs };

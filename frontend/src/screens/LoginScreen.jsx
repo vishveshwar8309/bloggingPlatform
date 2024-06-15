@@ -5,12 +5,14 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useGetuserDataMutation } from "../slices/usersApiSlice";
 import { setCredentials } from "../slices/authSlice";
+import Loader from "../components/Loader";
+import { toast } from "react-toastify";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [registerUser, { isLoading, error }] = useGetuserDataMutation();
+  const [authenticateUser, { isLoading, error }] = useGetuserDataMutation();
 
   const { userInfo } = useSelector((state) => state.auth);
   const navigate = useNavigate();
@@ -26,9 +28,15 @@ const LoginScreen = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const userData = await registerUser({ email, password }).unwrap();
-    dispatch(setCredentials({ ...userData }));
-    navigate("/");
+
+    try {
+      const userData = await authenticateUser({ email, password }).unwrap();
+      dispatch(setCredentials({ ...userData }));
+      navigate(redirect);
+      toast.success("logged in successful");
+    } catch (err) {
+      toast.error(err?.data?.message || err.error);
+    }
   };
 
   return (
@@ -67,6 +75,7 @@ const LoginScreen = () => {
           </Button>
         </Form.Group>
       </Form>
+      {isLoading && <Loader />}
       <p>
         Didn't have an account? <Link to="/register">register</Link>
       </p>
