@@ -25,7 +25,10 @@ const UnloggedScreen = () => {
               <Row style={{ height: "500px" }}>
                 {blogs.map((blog) => (
                   <Col sm={12} md={6} lg={4} xl={3} key={blog._id}>
-                    <Card className="my-3 p-3 rounded shadow">
+                    <Card
+                      className="my-3 p-3 rounded shadow"
+                      style={{ height: "450px" }}
+                    >
                       <Link to={`/signin?redirect=/blogs/${blog._id}`}>
                         <Card.Img
                           src={blog.image}

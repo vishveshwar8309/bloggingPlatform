@@ -12,7 +12,7 @@ const MyBlogs = ({ blog }) => {
   return (
     <Card
       className="my-3 p-3 rounded"
-      style={{ width: "350px", height: "auto" }}
+      style={{ width: "350px", height: "450px" }}
     >
       <Link to={`/blogs/${blog._id}`}>
         <Card.Img src={blog.image} alt={blog.content} variant="top" />

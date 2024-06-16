@@ -28,7 +28,6 @@ app.get("/", async (req, res) => {
     res.send(blogs)
 })
 
-app.use(errorHandler);
 
 const __dirname = path.resolve()
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')))     //serving   uploads/  folder as the static folder
@@ -48,6 +47,7 @@ if (process.env.NODE_ENV === 'production') {
     });
 }
 
+app.use(errorHandler);
 
 
 app.listen(PORT, () => {
